@@ -9,7 +9,7 @@ body {
 
 .container {
     max-width: 330px;
-    min-height: 514px;
+    min-height: 555px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -85,7 +85,8 @@ body {
 }
 
 .informacao-secundaria .humidade,
-.informacao-secundaria .velocidade-do-vento {
+.informacao-secundaria .velocidade-do-vento,
+.informacao-secundaria .data-hora {
     display: flex;
     align-items: center;
     justify-content: space-between;
