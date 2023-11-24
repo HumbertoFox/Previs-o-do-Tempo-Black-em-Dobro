@@ -15,7 +15,7 @@ body {
     justify-content: space-between;
     text-align: center;
     color: #FFF;
-    background: url(../images/background-0.png) #1F2949;
+    background-color:#1F2949;
     background-size: cover;
     border-radius: 15px;
     box-shadow: 0 10px 50px rgba(0, 0, 128, .7);
@@ -53,7 +53,7 @@ body {
     width: 30px;
     padding: 6px;
     opacity: .8;
-    transition: .3s ease-in-out;
+    transition: .1s ease-in-out;
 }
 
 .busca .lupa:active {
