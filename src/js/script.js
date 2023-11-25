@@ -7,18 +7,22 @@ setInterval(() => {
 }, 1000);
 
 const getHours = () => {
-    const clock = document.getElementById("hora");
-    const dataAtual = document.getElementById("data");
+    const selectClock = document.getElementById("hora");
+    const selectData = document.getElementById("data");
     const date = new Date();
     const year = date.getFullYear();
+    const months = date.getMonth()+1;
+    const days = date.getDate();
     const hours = date.getHours();
     const minutes = date.getMinutes();
     const seconds = date.getSeconds();
     const hour = hours < 10 ? `0${hours}` : hours;
     const minute = minutes < 10 ? `0${minutes}` : minutes;
     const second = seconds < 10 ? `0${seconds}` : seconds;
-    clock.innerHTML = `${hour}:${minute}:${second}`;
-    dataAtual.innerHTML = `${year}`;
+    const month = months < 10 ? `0${months}` : months;
+    const day = days < 10 ? `0${days}` : days;
+    selectClock.innerHTML = `${hour}:${minute}:${second}`;
+    selectData.innerHTML = `${day}/${month}/${year}`;
 
     if (hour <= 5) {
         selectMainContainer.style.backgroundImage = "url(./src/images/background-0.png)";
@@ -39,6 +43,27 @@ botaoDeBusca.addEventListener("click", async () => {
     const dados = await buscarDadosDaCidade(cidade);
 
     if (dados) peencherDadosNaTela(dados, cidade);
+
+    document.getElementById("input-busca").value = "";
+    document.getElementById("input-busca").focus();
+});
+
+document.getElementById("input-busca").addEventListener("keyup", async (e) => {
+    const cidade = e.target.value;
+    const key = e.which || e.keyCode;
+    const isEnterKeyPressed = key === 13;
+
+    if (isEnterKeyPressed) {
+
+        if (cidade == "") return;
+
+        const dados = await buscarDadosDaCidade(cidade);
+
+        if (dados) peencherDadosNaTela(dados, cidade);
+
+        document.getElementById("input-busca").value = "";
+        document.getElementById("input-busca").focus();
+    };
 });
 
 async function buscarDadosDaCidade(cidade) {
@@ -53,6 +78,7 @@ async function buscarDadosDaCidade(cidade) {
 };
 
 function peencherDadosNaTela(dados, cidade) {
+    const regiaoEstado = dados.location.region;
     const tempetatura = dados.current.temp_c;
     const condicao = dados.current.condition.text;
     const humidade = dados.current.humidity;
@@ -60,6 +86,7 @@ function peencherDadosNaTela(dados, cidade) {
     const iconeCondicao = dados.current.condition.icon;
 
     document.getElementById("cidade").textContent = cidade;
+    document.getElementById("estado").textContent = regiaoEstado;
     document.getElementById("temperatura").textContent = `${tempetatura} °C`;
     document.getElementById("condicao").textContent = condicao;
     document.getElementById("humidade").textContent = `${humidade}%`;
